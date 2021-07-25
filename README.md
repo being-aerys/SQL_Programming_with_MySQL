@@ -1,2 +1,2 @@
-# SQL_Fun
-This is an attempt to refresh different aspects of SQL.
+# SQL with MySQL
+This repo is a collection of SQL programming. A work in progress.
