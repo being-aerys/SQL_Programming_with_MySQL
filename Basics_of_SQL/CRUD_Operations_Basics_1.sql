@@ -43,7 +43,7 @@ INSERT INTO student(student_id, fullname, major, gpa) VALUES (3, "Anjana Shresth
 
 INSERT INTO student(fullname, major, gpa) VALUES ("Jupiter Tamrakar", "Knowledge Engineering", 4.0);
 
-INSERT INTO student(fullname, major, gpa) VALUES ("Vishnu Manadhar", "Biology", 4.0);
+INSERT INTO student(fullname, major, gpa) VALUES ("Vishnu Manandhar", "Biology", 4.0);
 
 #Change the value of one of the fields.
  UPDATE student SET major = "Civil Engineering" WHERE major = "Biology";

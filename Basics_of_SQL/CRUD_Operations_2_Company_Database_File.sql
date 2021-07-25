@@ -64,8 +64,9 @@ CREATE TABLE branch_supplier (
 -- INSERT DATA INTO DIFFERENT TABLES.
 
 
--- Corporate
-#Notice that there is no entry in the beanch_1 table. Hence, we cannot assign a branch id to an entry in the employee_1 table. Instead, we do the following.
+-- Corporate branch information
+#Notice that there is no entry in the branch_1 table.
+#Hence, we cannot assign a branch id to an entry in the employee_1 table. Instead, we do the following.
 
 
 INSERT INTO employee VALUES(100, 'David', 'Wallace', '1967-11-17', 'M', 250000, NULL, NULL);
@@ -78,7 +79,7 @@ WHERE emp_id = 100;
 
 INSERT INTO employee VALUES(101, 'Jan', 'Levinson', '1961-05-11', 'F', 110000, 100, 1);
 
--- Scranton
+-- Scranton branch information
 INSERT INTO employee VALUES(102, 'Michael', 'Scott', '1964-03-15', 'M', 75000, 100, NULL);
 
 INSERT INTO branch VALUES(2, 'Scranton', 102, '1992-04-06');
