@@ -27,3 +27,8 @@ WHERE client.branch_id = (
     LIMIT 1 -- The manager could be managing multiple branches, so limiting here for now.
 );
 
+
+-- --------------------------------------------------------------------------------------
+-- Use sql_store database
+-- --------------------------------------------------------------------------------------
+
