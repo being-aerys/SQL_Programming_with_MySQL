@@ -1,5 +1,3 @@
-
-
 -- ------------------------------------------------------------------------------
 -- OPERATIONS IN basic_db DATABASE
 -- ------------------------------------------------------------------------------
@@ -124,6 +122,10 @@ WHERE gpa IN (4, 3.9) AND student_id >2;
 -- ------------------------------------------------------------------------------
 -- OPERATIONS IN SQL STORE DATABASE
 -- ------------------------------------------------------------------------------
+-- ------------------------------------
+-- SELECT STATEMENT--------------------
+-- ------------------------------------
+
 USE sql_store;
 
 SELECT products.product_id, products.unit_price, unit_price * 1.1 AS new_price
@@ -163,4 +165,72 @@ SELECT *
 FROM customers
 ORDER BY points DESC
 LIMIT 3;
+
+-- ------------------------------------
+-- INSERT STATEMENT--------------------
+-- ------------------------------------
+INSERT INTO customers
+VALUES (DEFAULT, "Sulav", "Kafley", NULL, NULL, "Random Address", "Corvallis", "OR", DEFAULT);
+
+-- INSERT multiple rows
+INSERT INTO shippers (name)
+VALUES("Shipper1"),("Shipper2"),("Shipper3");
+
+-- INSERTING HEIRARCHIAL ROWS --> Insert into multiple tables using LAST_INSERT_ID()
+INSERT INTO orders(customer_id, order_date, status)
+VALUES (1,"2019-01-02",1);
+
+INSERT INTO order_items
+VALUES (LAST_INSERT_ID(), 1,1,2.99);
+
+-- ------------------------------------
+-- CREATE A COPY OF A TABLE------------
+-- ------------------------------------
+
+-- To copy all the records into the new table.
+CREATE TABLE orders_archive AS
+SELECT * FROM orders;
+
+-- To copy only a subset of records.
+TRUNCATE sql_store.orders_archive; -- deletes all the records that we just copied.
+
+INSERT INTO orders_archive
+SELECT * FROM orders
+WHERE order_date<"2019-01-01";
+
+-- ------------------------------------
+-- UPDATE STATEMENT--------------------
+-- ------------------------------------
+USE sql_invoicing;
+
+-- Update a single row.
+UPDATE invoices
+SET payment_total = 10, payment_date = "2019-03-01"
+WHERE invoice_id = 1;
+
+-- Update multiple rows.
+UPDATE invoices
+SET payment_total = 10, payment_date = "2019-03-01"
+WHERE invoice_id = (3,5); -- updates for rows with invoice ids 3 and 5.
+
+-- Subqueries in UPDATE statementsUPDATE invoices
+UPDATE invoices
+SET payment_total = 10, payment_date = "2019-03-01"
+WHERE invoice_id = 
+					(SELECT client_id
+                    FROM clients
+                    WHERE state in ("CA", "MA"));
+                    
+-- ------------------------------------
+-- DELETE STATEMENT--------------------
+-- ------------------------------------
+DELETE FROM invoices
+WHERE invoice_id = 1;
+
+DELETE FROM invoices
+WHERE client_id = (SELECT client_id
+                    FROM clients
+                    WHERE name = "Myworks"
+                    );
+
 

@@ -1,3 +1,21 @@
+-- UNION - Literally, put UNION keyword in between two SQL queries.
+
+-- --------------------------------------------------------------------------------
+-- Using sql_store database
+-- --------------------------------------------------------------------------------
+SELECT order_id, "Active" AS Status
+FROM orders
+WHERE order_date = "2020-01-01"
+UNION
+SELECT order_id, "Archived" AS Status
+FROM orders
+WHERE order_date < "2020-01-01";
+
+-- --------------------------------------------------------------------------------
+-- Using basic_db database
+-- --------------------------------------------------------------------------------
+USE basic_db;
+
 -- Find a list of employees and branch names
 SELECT first_name
 FROM employee

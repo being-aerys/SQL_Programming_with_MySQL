@@ -12,22 +12,24 @@ FROM employee
 JOIN branch
 ON employee.emp_id = branch.mgr_id;
 
--- LEFT JOIN : Include the overlapping entries from both the tables as well as all the entries from the left table.
+-- LEFT JOIN/ LEFT OUTER JOIN
+-- Include the overlapping entries from both the tables as well as all the entries from the left table.
 -- Find all the branches and the names of their managers.
 SELECT employee.first_name, employee.emp_id, branch.branch_name
 FROM employee
 LEFT JOIN branch
 ON employee.emp_id = branch.mgr_id;
 
--- RIGHT JOIN : Include the overlapping entries from both the tables as well as all the entries from the right table.
+-- RIGHT JOIN/ RIGHT OUTER JOIN
+-- Include the overlapping entries from both the tables as well as all the entries from the right table.
 -- Find all the branches and the names of their managers.
 SELECT employee.first_name, employee.emp_id, branch.branch_name
 FROM employee
 RIGHT JOIN branch
 ON employee.emp_id = branch.mgr_id;
 
--- OUTER JOIN : A combination of both left and right joins. Not directly possible in MySQL, Can use
--- left join + union + outer join to achieve the same
+-- FULL OUTER JOIN : A combination of both left and right joins.
+-- Not directly possible in MySQL, Can use left join + union + outer join to achieve the same
 
 -- --------------------------------------------------------------------------------
 -- Using sql_store database
@@ -68,8 +70,74 @@ FROM orders o
 JOIN customers c
 ON o.customer_id = c.customer_id
 JOIN order_statuses os
-ON o.status = os.order_status_id
+ON o.status = os.order_status_id;
 
 -- --------------------------------------------------------------------------------
--- COMPUND JOIN STATEMENTS
+-- COMPUND (INNER) JOIN STATEMENT TO HANDLE JOINS WITH COMPOSITE PRIMARY KEYS
 -- --------------------------------------------------------------------------------
+SELECT *
+FROM order_items i
+JOIN order_item_notes n
+ON i.order_id = n.order_id
+AND i.product_id = n.product_id;
+
+-- --------------------------------------------------------------------------------
+-- OUTER JOINS
+-- 3 types: LEFT (OUTER) JOIN, RIGHT (OUTER) JOIN, FULL OUTER JOIN
+-- --------------------------------------------------------------------------------
+SELECT *
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+ORDER BY c.customer_id;
+
+-- --------------------------------------------------------------------------------
+-- OUTER JOINS BETWEEN MULTIPLE TABLES
+-- --------------------------------------------------------------------------------
+SELECT
+c.customer_id, c.first_name, o.order_id, sh.name AS Shipper
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+LEFT JOIN shippers sh
+ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id;
+
+-- --------------------------------------------------------------------------------
+-- SELF OUTER JOINS
+-- --------------------------------------------------------------------------------
+USE sql_hr;
+
+SELECT e.employee_id, e.first_name, m.first_name as Manager
+FROM employees e
+LEFT JOIN employees m
+ON e.reports_to = m.employee_id
+
+-- --------------------------------------------------------------------------------
+-- "USING" clause to replace ON
+-- --------------------------------------------------------------------------------
+USE sql_store;
+
+SELECT o.order_id, c.first_name
+FROM orders o
+JOIN customers c
+-- ON o.customer_id = c.customer_id;
+USING (customer_id); -- works only if the column name is the same in both the tables.
+
+-- --------------------------------------------------------------------------------
+-- "USING" clause for composite primary keys
+-- --------------------------------------------------------------------------------
+SELECT *
+FROM order_items oi
+JOIN order_item_notes oin
+-- ON or.order_id = oin.order_id AND oi.product_id = oin.product_id
+USING (order_id, product_id);
+
+-- --------------------------------------------------------------------------------
+-- CROSS JOIN -- Join every record from the first table with every record from the second table
+-- Typically want when we want a cartesian product type matching of the tables.
+-- This demo example does not make much sense in practice.
+-- --------------------------------------------------------------------------------
+SELECT c.first_name AS customer, p.name AS product
+FROM customers c
+CROSS JOIN products p;
