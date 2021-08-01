@@ -141,3 +141,19 @@ USING (order_id, product_id);
 SELECT c.first_name AS customer, p.name AS product
 FROM customers c
 CROSS JOIN products p;
+
+
+---------------------------------MISC----------------------------------------------------
+
+-- Self Join 2nd Syntax
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+  AND A.City = B.City
+ORDER BY A.City;
+
+-- Delete duplicate entries using self join.
+
+DELETE p1
+FROM Person p1, Person p2
+WHERE p1.Email = p2.Email AND p1.Id > p2.Id
