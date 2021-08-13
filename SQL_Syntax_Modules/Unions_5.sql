@@ -1,4 +1,6 @@
--- UNION - Literally, put UNION keyword in between two SQL queries.
+-- UNION - Creates a new table by combining results from two queries.
+-- By default, removes duplicates but can use UNION ALL to tolerate duplicates.
+-- Usage : Literally, put UNION keyword in between two SQL queries.
 
 -- --------------------------------------------------------------------------------
 -- Using sql_store database
