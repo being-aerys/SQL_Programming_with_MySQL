@@ -17,6 +17,10 @@ SELECT *
 FROM customers
 WHERE last_name REGEXP "^R"; -- requires "field" to be the start of the value.
 
+SELECT *
+FROM Patients P
+WHERE P.conditions REGEXP "^DIAB1| DIAB1"; -- Notice the whitespace before DIAB1 after |
+
 -- Can use a $ to indicate the end of the value.
 SELECT *
 FROM customers

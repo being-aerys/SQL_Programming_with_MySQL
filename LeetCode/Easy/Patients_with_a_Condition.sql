@@ -1,0 +1,3 @@
+SELECT *
+FROM Patients P
+WHERE P.conditions REGEXP "^DIAB1| DIAB1";

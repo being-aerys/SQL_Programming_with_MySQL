@@ -45,12 +45,18 @@ FROM Cars;
 
 -- ---------------------------------------------------------------------------------------------------
 -- Basic Grouping using GROUP BY clause based on the company name
--- GROUP BY returns one row for an entire group.
+-- GROUP BY returns the top row for an entire group.
 -- ---------------------------------------------------------------------------------------------------
 SELECT C.company, SUM(C.cost) AS total_company_cost
 FROM Cars C
 GROUP BY C.company
 ORDER BY C.company;
+
+-- ---------------------------------------------------------------------------------------------------
+-- OVER(ORDER BY XXX) function calculates the cumulative sum
+SELECT SUM(Q.weight) OVER(ORDER BY Q.weight)
+FROM Queue Q;
+
 
 -- ---------------------------------------------------------------------------------------------------
 -- OVER(PARTITION BY XXX) function

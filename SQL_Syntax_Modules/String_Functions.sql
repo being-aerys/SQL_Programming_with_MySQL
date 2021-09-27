@@ -14,3 +14,9 @@ SELECT SUBSTRING("DUMMY_STRING", 5, 3) AS Extracted_Substring; -- starts at posi
 SELECT LEFT("BUMMY_STRING",3) AS LEFT_SUBSTRING; -- extracts 3 characters from the left of the string.
 
 SELECT RIGHT("BUMMY_STRING",3) AS RIGHT_SUBSTRING; -- extracts 3 characters from the left of the string.
+
+
+-- -----------------------------------------------------------------------------------------------------
+-- REPLACE()
+-- -----------------------------------------------------------------------------------------------------
+SELECT REPLACE('aashish','a','b'); -- returns a string whose "a" are replaced with "b"
