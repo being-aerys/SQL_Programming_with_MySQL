@@ -1,5 +1,5 @@
 
-
+-- A window function is a function which uses values from one or multiple rows to return a value for each row (in contrast to an aggregate function).
 # taken from multiple sources including codingsight.com, beardeddev
 -- -----------------------------------------------------
 DROP DATABASE IF EXISTS ShowRoom;
@@ -43,6 +43,7 @@ USE Showroom;
 SELECT *
 FROM Cars;
 
+-- ASIDE: GROUP BY usage 
 -- ---------------------------------------------------------------------------------------------------
 -- Basic Grouping using GROUP BY clause based on the company name
 -- GROUP BY returns the top row for an entire group.
@@ -52,14 +53,19 @@ FROM Cars C
 GROUP BY C.company
 ORDER BY C.company;
 
+-- WINDOW FUNCTIONS
+-- Window functions have an OVER clause; any function without an OVER clause is not a window function,
+-- but rather an aggregate or single-row (scalar) function.
 -- ---------------------------------------------------------------------------------------------------
--- OVER(ORDER BY XXX) function calculates the cumulative sum
+-- First, let us see the usage of the OVER clause.
+-- If only OVER() clause is used, the entire result set treated as a single partition.
+-- OVER(ORDER BY XXX) function calculates the cumulative sum.
 SELECT SUM(Q.weight) OVER(ORDER BY Q.weight)
 FROM Queue Q;
 
-
+-- Also let us see the usage of the PARTITION BY clause.
 -- ---------------------------------------------------------------------------------------------------
--- OVER(PARTITION BY XXX) function
+-- OVER(PARTITION BY XXX)
 -- PARTITION BY creates a new column : calculates an aggregate function for each partition (e.g., gender) and
 -- uses these values as a new column.
 -- ---------------------------------------------------------------------------------------------------
@@ -68,8 +74,11 @@ FROM Cars C;
 
 SELECT C.name, C.company, SUM(C.cost) OVER(PARTITION BY C.company ORDER BY C.company) AS Cumulative_cost_so_far
 FROM Cars C;
+
+-- Now come the actual window functions.
+-- Window functions are evaluated after aggregation (after the GROUP BY clause and non-window aggregate functions, for example).
 -- ---------------------------------------------------------------------------------------------------
--- ROW_NUMBER() function creates a new row that assigns a sequential number to each row in the result set.
+-- ROW_NUMBER() function is a window function that creates a new row that assigns a sequential number to each row in the result set.
 -- ---------------------------------------------------------------------------------------------------
 
 -- First, lets see what the table looks like originally.

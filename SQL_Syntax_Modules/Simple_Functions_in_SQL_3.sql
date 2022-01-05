@@ -1,4 +1,7 @@
 
+-- AGGREGATION
+-- An aggregation function groups the values of multiple rows togerther to form a single summary value.
+
 USE basic_db;
 
 -- Count
@@ -23,8 +26,8 @@ SELECT *
 FROM employee;
 
 -- ----------------------------------------------------------------------
--- AGGREGATION/ GROUPING
--- Typically, GROUP BY is used in conjunction with other functions like MAX()
+-- AGGREGATION after GROUPING
+-- Typically, GROUP BY is used in conjunction with aggregation functions like MAX()
 -- to find the max in each group.
 -- Find how many males and females there are in the employee table
 SELECT COUNT(sex), sex
